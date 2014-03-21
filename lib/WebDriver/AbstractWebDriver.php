@@ -125,6 +125,10 @@ abstract class AbstractWebDriver
         $results = json_decode($rawResults, true);
         $value   = null;
 
+        if(is_null($results)) {
+          throw WebDriverException::factory($results['status'], 'Invalid WebDriver Response: '.$rawResults);
+        }
+
         if (is_array($results) && array_key_exists('value', $results)) {
             $value = $results['value'];
         }
